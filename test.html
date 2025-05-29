@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qaraa.kz</title>
+  <link rel="icon" href="images/logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #000000;
+      --surface: #0f0f0f;
+      --surface-2: #1a1a1a;
+      --surface-3: #262626;
+      --accent: #ffffff;
+      --accent-hover: #f5f5f5;
+      --text: #ffffff;
+      --text-dim: #808080;
+      --text-light: #b3b3b3;
+      --border: #333333;
+      --shadow: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.4;
+      overflow-x: hidden;
+    }
+
+    /* Cursor */
+    * {
+      cursor: none;
+    }
+    
+    .cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: difference;
+      transition: transform 0.1s ease;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 2rem 4rem;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 0%, #808080 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 3rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav-link:hover {
+      color: var(--accent);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 0 2rem;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    }
+
+    .hero-title {
+      font-size: clamp(4rem, 12vw, 12rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      margin-bottom: 2rem;
+      background: linear-gradient(135deg, var(--text) 0%, var(--text-dim) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 50px rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-light);
+      font-weight: 400;
+      max-width: 600px;
+      margin-bottom: 3rem;
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 2.5rem;
+      background: var(--accent);
+      color: var(--bg);
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.9rem;
+      border: 2px solid var(--accent);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .hero-cta:hover::before {
+      left: 100%;
+    }
+
+    .hero-cta:hover {
+      background: transparent;
+      color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 2rem;
+      padding: 0 4rem;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    /* Section */
+    .section {
+      padding: 8rem 0;
+      position: relative;
+    }
+
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 100px;
+      background: linear-gradient(to bottom, transparent, var(--border), transparent);
+    }
+
+    .section-title {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 4rem;
+      grid-column: 1 / -1;
+      text-align: center;
+    }
+
+    .section-title span {
+      color: var(--text-dim);
+      font-weight: 300;
+    }
+
+    /* Products */
+    .product {
+      grid-column: span 6;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+    }
+
+    .product::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 1;
+    }
+
+    .product:hover::before {
+      opacity: 1;
+    }
+
+    .product:hover {
+      border-color: var(--accent);
+      transform: translateY(-8px);
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 70%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+      filter: grayscale(100%) contrast(1.1);
+    }
+
+    .product:hover .product-image {
+      transform: scale(1.1);
+      filter: grayscale(80%) contrast(1.2);
+    }
+
+    .product-info {
+      padding: 1.5rem;
+      height: 30%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+    }
+
+    .product-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .product-price {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--text-light);
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--accent);
+      color: var(--bg);
+      padding: 0.4rem 0.8rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      z-index: 3;
+      border-radius: 2px;
+    }
+
+    /* Special layouts */
+    .product.featured {
+      grid-column: span 12;
+      aspect-ratio: 16/6;
+      display: flex;
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+    }
+
+    .product.featured .product-image {
+      width: 60%;
+      height: 100%;
+    }
+
+    .product.featured .product-info {
+      width: 40%;
+      height: 100%;
+      padding: 3rem;
+      justify-content: center;
+    }
+
+    .product.featured .product-name {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text) 0%, var(--text-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .product.featured .product-price {
+      font-size: 1.5rem;
+    }
+
+    .product.small {
+      grid-column: span 4;
+    }
+
+    /* Stats */
+    .stats {
+      background: var(--surface-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .stats::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 49%, rgba(255, 255, 255, 0.02) 50%, transparent 51%);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4rem;
+      padding: 4rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat {
+      position: relative;
+      padding: 2rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+
+    .stat:hover {
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-4px);
+    }
+
+    .stat-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+
+    .stat-label {
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* Quality Badge */
+    .quality-badge {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-light);
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+    }
+
+    .quality-badge:hover {
+      background: var(--surface-3);
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    .footer {
+      padding: 4rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      background: var(--surface);
+      position: relative;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .footer-text {
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-link {
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 1rem 1.5rem;
+      border: 1px solid var(--border);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--accent);
+      transition: left 0.3s;
+      z-index: -1;
+    }
+
+    .social-link:hover::before {
+      left: 0;
+    }
+
+    .social-link:hover {
+      color: var(--bg);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .header {
+        padding: 1rem 2rem;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .grid {
+        padding: 0 2rem;
+        gap: 1rem;
+      }
+      
+      .product {
+        grid-column: span 12;
+      }
+      
+      .product.small {
+        grid-column: span 6;
+      }
+      
+      .product.featured {
+        flex-direction: column;
+        aspect-ratio: 1;
+      }
+      
+      .product.featured .product-image {
+        width: 100%;
+        height: 70%;
+      }
+      
+      .product.featured .product-info {
+        width: 100%;
+        height: 30%;
+        padding: 1.5rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        padding: 2rem;
+      }
+
+      .quality-badge {
+        display: none;
+      }
+    }
+
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Loading */
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      transition: opacity 0.5s;
+    }
+
+    .loading-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      color: var(--accent);
+      animation: pulse 1.5s infinite;
+      margin-bottom: 2rem;
+      letter-spacing: 0.2em;
+    }
+
+    .loading-bar {
+      width: 200px;
+      height: 2px;
+      background: var(--surface-2);
+      overflow: hidden;
+      border-radius: 1px;
+    }
+
+    .loading-progress {
+      width: 0;
+      height: 100%;
+      background: var(--accent);
+      animation: loading 2s ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes loading {
+      0% { width: 0; }
+      100% { width: 100%; }
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--surface-2);
+      z-index: 101;
+    }
+
+    .scroll-progress {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.1s;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor"></div>
+  
+  <div class="scroll-indicator">
+    <div class="scroll-progress"></div>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="loading-text">qaraa.kz</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+
+  <div class="quality-badge">
+    PREMIUM QUALITY
+  </div>
+
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">qaraa</div>
+      <ul class="nav-links">
+        <li><a href="#perfume" class="nav-link">PERFUME</a></li>
+        <li><a href="#airpods" class="nav-link">AIRPODS</a></li>
+        <li><a href="#contact" class="nav-link">CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1 class="hero-title">AROMA<br>PODS</h1>
+    <p class="hero-subtitle">Эксклюзивная парфюмерия и премиум AirPods.<br>Качество, которое говорит само за себя.</p>
+    <a href="https://t.me/твой_ник" class="hero-cta">
+      <span>ЗАКАЗАТЬ</span>
+      <span>→</span>
+    </a>
+  </section>
+
+  <section class="stats">
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-number">1000+</div>
+        <div class="stat-label">Довольных клиентов</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Заказов в месяц</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Поддержка</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Гарантия качества</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="perfume">
+    <div class="grid">
+      <h2 class="section-title">ПАРФЮМЕРИЯ <span>/</span> COLLECTION</h2>
+      
+      <div class="product featured fade-in">
+        <img src="https://images.unsplash.com/photo-1541746972996-4e0b0c040665?w=800&h=400&fit=crop&q=80" alt="Chanel Bleu" class="product-image">
+        <div class="product-tag">HIT</div>
+        <div class="product-info">
+          <h3 class="product-name">CHANEL BLEU DE CHANEL</h3>
+          <div class="product-price">4.990₽</div>
+        </div>
+      </div>
+
+      <div class="product fade-in">
+        <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59d75?w=400&h=300&fit=crop&q=80" alt="Dior Sauvage" class="product-image">
+        <div class="product-tag">NEW</div>
+        <div class="product-info">
+          <h3 class="product-name">DIOR SAUVAGE</h3>
+          <div class="product-price">5.490₽</div>
+        </div>
+      </div>
+
+      <div class="product fade-in">
+        <img src="https://images.unsplash.com/photo-1557170334-f7af7d3d8b40?w=400&h=300&fit=crop&q=80" alt="Tom Ford" class="product-image">
+        <div class="product-info">
+          <h3 class="product-name">TOM FORD BLACK ORCHID</h3>
+          <div class="product-price">6.990₽</div>
+        </div>
+      </div>
+
+      <div class="product small fade-in">
+        <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=300&h=200&fit=crop&q=80" alt="Versace" class="product-image">
+        <div class="product-info">
+          <h3 class="product-name">VERSACE EROS</h3>
+          <div class="product-price">4.490₽</div>
+        </div>
+      </div>
+
+      <div class="product small fade-in">
+        <img src="https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=300&h=200&fit=crop&q=80" alt="YSL" class="product-image">
+        <div class="product-info">
+          <h3 class="product-name">YSL Y</h3>
+          <div class="product-price">5.290₽</div>
+        </div>
+      </div>
+
+      <div class="product small fade-in">
+        <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=300&h=200&fit=crop&q=80" alt="Creed" class="product-image">
+        <div class="product-tag">LUX</div>
+        <div class="product-info">
+          <h3 class="product-name">CREED AVENTUS</h3>
+          <div class="product-price">8.990₽</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="airpods">
+    <div class="grid">
+      <h2 class="section-title">AIRPODS <span>/</span> PREMIUM COPIES</h2>
+      
+      <div class="product fade-in">
+        <img src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400&h=300&fit=crop&q=80" alt="AirPods Pro" class="product-image">
+        <div class="product-tag">PRO</div>
+        <div class="product-info">
+          <h3 class="product-name">AIRPODS PRO</h3>
+          <div class="product-price">3.990₽</div>
+        </div>
+      </div>
+
+      <div class="product fade-in">
+        <img src="https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?w=400&h=300&fit=crop&q=80" alt="AirPods Max" class="product-image">
+        <div class="product-tag">MAX</div>
+        <div class="product-info">
+          <h3 class="product-name">AIRPODS MAX</h3>
+          <div class="product-price">8.990₽</div>
+        </div>
+      </div>
+
+      <div class="product small fade-in">
+        <img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=200&fit=crop&q=80" alt="AirPods 3" class="product-image">
+        <div class="product-info">
+          <h3 class="product-name">AIRPODS 3</h3>
+          <div class="product-price">2.990₽</div>
+        </div>
+      </div>
+
+      <div class="product small fade-in">
+        <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe1d51?w=300&h=200&fit=crop&q=80" alt="AirPods 2" class="product-image">
+        <div class="product-info">
+          <h3 class="product-name">AIRPODS 2</h3>
+          <div class="product-price">1.990₽</div>
+        </div>
+      </div>
+
+      <div class="product small fade-in">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=200&fit=crop&q=80" alt="AirPods Gen1" class="product-image">
+        <div class="product-info">
+          <h3 class="product-name">AIRPODS GEN1</h3>
+          <div class="product-price">1.490₽</div>
+        </div>
+      </div>
+
+      <div class="product small fade-in">
+        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=300&h=200&fit=crop&q=80" alt="Custom AirPods" class="product-image">
+        <div class="product-tag">CUSTOM</div>
+        <div class="product-info">
+          <h3 class="product-name">CUSTOM AIRPODS</h3>
+          <div class="product-price">4.990₽</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="contact">
+    <p class="footer-text">qaraa.kz © 2025 / ASTANA, KAZAKHSTAN</p>
+    <div class="social-links">
+      <a href="https://t.me/твой_ник" class="social-link">TELEGRAM</a>
+      <a href="https://wa.me/77777777777" class="social-link">WHATSAPP</a>
+      <a href="mailto:info@qaraa.kz" class="social-link">EMAIL</a>
+    </div>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const cursor = document.querySelector('.cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    // Loading screen
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loading').style.opacity = '0';
+        setTimeout(() => {
+          document.getElementById('loading').style.display = 'none';
+        }, 500);
+      }, 2000);
+    });
+
+    // Scroll progress indicator
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset;
+      const docHeight = document.body.offsetHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Intersection Observer for fade-in animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Product click handlers
+    document.querySelectorAll('.product').forEach(product => {
+      product.addEventListener('click', () => {
+        window.open('https://t.me/твой_ник', '_blank');
+      });
+    });
+
+    // Stats animation on scroll
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const numbers = entry.target.querySelectorAll('.stat-number');
+          numbers.forEach(number => {
+            const target = parseInt(number.textContent.replace(/\D/g, ''));
+            if (target) {
+              animateNumber(number, 0, target, 2000);
+            }
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+
+    const statsSection = document.querySelector('.stats');
+    if (statsSection) {
+      statsObserver.observe(statsSection);
+    }
+
+    // Number animation function
+    function animateNumber(element, start, end, duration) {
+      const startTime = performance.now();
+      const originalText = element.textContent;
+      const suffix = originalText.replace(/[\d]/g, '');
+      
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        const current = Math.floor(start + (end - start) * easeOutCubic(progress));
+        element.textContent = current + suffix;
+        
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+      
+      requestAnimationFrame(update);
+    }
+
+    // Easing function
+    function easeOutCubic(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
+
+    // Parallax effect for hero section
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const hero = document.querySelector('.hero');
+      const heroTitle = document.querySelector('.hero-title');
+      
+      if (hero && heroTitle) {
+        const rate = scrolled * -0.5;
+        heroTitle.style.transform = `translateY(${rate}px)`;
+      }
+    });
+
+    // Product hover sound effect (optional, можно убрать если не нужно)
+    document.querySelectorAll('.product').forEach(product => {
+      product.addEventListener('mouseenter', () => {
+        // Можно добавить звук при наведении
+        // const audio = new Audio('path/to/hover-sound.mp3');
+        // audio.volume = 0.1;
+        // audio.play();
+      });
+    });
+
+    // Mobile menu toggle (если понадобится)
+    function createMobileMenu() {
+      const header = document.querySelector('.header');
+      const nav = document.querySelector('.nav');
+      
+      if (window.innerWidth <= 768) {
+        if (!document.querySelector('.mobile-menu-btn')) {
+          const menuBtn = document.createElement('button');
+          menuBtn.classList.add('mobile-menu-btn');
+          menuBtn.innerHTML = '☰';
+          menuBtn.style.cssText = `
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+          `;
+          
+          nav.appendChild(menuBtn);
+          
+          menuBtn.addEventListener('click', () => {
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks.style.display === 'flex') {
+              navLinks.style.display = 'none';
+            } else {
+              navLinks.style.cssText = `
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                padding: 2rem;
+                gap: 1rem;
+              `;
+            }
+          });
+        }
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        // Закрыть мобильное меню если открыто
+        const navLinks = document.querySelector('.nav-links');
+        if (navLinks && window.innerWidth <= 768) {
+          navLinks.style.display = 'none';
+        }
+      }
+    });
+
+    // Resize handler
+    window.addEventListener('resize', () => {
+      createMobileMenu();
+    });
+
+    // Initialize
+    createMobileMenu();
+  </script>
+</body>
+</html>
